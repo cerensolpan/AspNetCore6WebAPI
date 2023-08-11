@@ -1,8 +1,13 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Header => Accept : application/xml => return xml format , application/json or default return json
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.ReturnHttpNotAcceptable = true;
+}).AddXmlDataContractSerializerFormatters();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
