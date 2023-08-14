@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.StaticFiles;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 
 // Add services to the container.
 // Header => Accept : application/xml => return xml format , application/json or default return json
