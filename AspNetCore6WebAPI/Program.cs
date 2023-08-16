@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.StaticFiles;
+﻿using AspNetCore6WebAPI.Services;
+using Microsoft.AspNetCore.StaticFiles;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.Console().WriteTo.File("logs/cityinfo.txt", rollingInterval: RollingInterval.Day).CreateLogger();
@@ -23,6 +24,8 @@ builder.Services.AddSwaggerGen();
 
 // The contents of the download file to be correct
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
+
+builder.Services.AddTransient<LocalMailService>();
 
 var app = builder.Build();
 
