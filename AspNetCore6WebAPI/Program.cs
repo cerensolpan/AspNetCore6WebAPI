@@ -1,4 +1,5 @@
-﻿using AspNetCore6WebAPI.Services;
+﻿using AspNetCore6WebAPI;
+using AspNetCore6WebAPI.Services;
 using Microsoft.AspNetCore.StaticFiles;
 using Serilog;
 
@@ -25,7 +26,13 @@ builder.Services.AddSwaggerGen();
 // The contents of the download file to be correct
 builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 
-builder.Services.AddTransient<LocalMailService>();
+#if DEBUG
+builder.Services.AddTransient<IMailService,LocalMailService>();
+#else
+builder.Services.AddTransient<IMailService,CloudMailService>();
+#endif
+
+builder.Services.AddSingleton<CitiesDataStore>();
 
 var app = builder.Build();
 

@@ -7,7 +7,7 @@ namespace AspNetCore6WebAPI
 	public class CitiesDataStore
 	{
 		public List<CityDto> Cities { get; set; }
-        public static CitiesDataStore Current { get; } = new CitiesDataStore();
+        // public static CitiesDataStore Current { get; } = new CitiesDataStore();
         public CitiesDataStore ()
 		{
             Cities = new List<CityDto>()
