@@ -1,6 +1,8 @@
 ﻿using AspNetCore6WebAPI;
+using AspNetCore6WebAPI.DbContexts;
 using AspNetCore6WebAPI.Services;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration().MinimumLevel.Debug().WriteTo.Console().WriteTo.File("logs/cityinfo.txt", rollingInterval: RollingInterval.Day).CreateLogger();
@@ -33,6 +35,11 @@ builder.Services.AddTransient<IMailService,CloudMailService>();
 #endif
 
 builder.Services.AddSingleton<CitiesDataStore>();
+builder.Services.AddDbContext<CityInfoContext>(
+   dbContextOptions => dbContextOptions.UseSqlite("Data Source=CityInfo.db"));
+
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<CityInfoContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("SampleDbConnection")));
+
 
 var app = builder.Build();
 
